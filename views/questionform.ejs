@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Select Question Part</title>
+    <style>
+        /* Basic Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        /* Body Styling */
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #2f2f2f;
+            color: #ffffff;
+            padding: 20px;
+        }
+
+        /* Container Styling */
+        .container {
+            background-color: #424242;
+            padding: 30px 40px;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            max-width: 400px;
+            width: 100%;
+            animation: fadeIn 1.2s ease;
+        }
+
+        /* Title Styling */
+        h2 {
+            color: #fff;
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            animation: slideIn 1s ease forwards;
+        }
+
+        /* Button Styling */
+        .container form {
+            margin: 15px 0;
+        }
+        
+        button {
+            background-color: #555;
+            color: #fff;
+            font-size: 1.1rem;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            width: 100%;
+            transition: background-color 0.3s, transform 0.3s;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Button Hover Effect */
+        button:hover {
+            background-color: #333;
+            transform: translateY(-3px);
+        }
+
+        /* Button Active Effect */
+        button:active {
+            background-color: #222;
+            transform: translateY(0px);
+        }
+
+        /* Fade-In Animation */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Slide-In Animation */
+        @keyframes slideIn {
+            from { transform: translateX(-100px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Select Part for Questions</h2>
+        <form action="/partA" method="post">
+            <input type="hidden" name="subject" value="<%= subject %>">
+            <input type="hidden" name="year" value="<%= year %>">
+            <input type="hidden" name="semester" value="<%= semester %>">
+            <button type="submit">Part A (2 Mark Questions)</button>
+        </form>
+        <form action="/partB" method="post">
+            <input type="hidden" name="subject" value="<%= subject %>">
+            <input type="hidden" name="year" value="<%= year %>">
+            <input type="hidden" name="semester" value="<%= semester %>">
+            <button type="submit">Part B and C (12 & 16 Mark Questions)</button>
+        </form>
+    </div>
+</body>
+</html>

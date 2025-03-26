@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chemistry Question Generator</title>
+</head>
+<body>
+    <style>
+        /* Basic Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Body Styling */
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f0f0f0;
+    font-family: Arial, sans-serif;
+}
+
+/* Container Styling */
+.container {
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    width: 100%;
+    max-width: 400px;
+}
+
+/* Title Styling */
+h2 {
+    margin-bottom: 20px;
+}
+
+/* Question Display Styling */
+.question-display {
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+}
+
+/* Textarea Styling */
+textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+/* Button Styling */
+button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+/* Result Styling */
+.result {
+    margin-top: 20px;
+    font-weight: bold;
+}
+
+    </style>
+    <div class="container">
+        <h2>Chemistry Question Generator</h2>
+        <div id="questionDisplay" class="question-display">
+            <!-- Question will be displayed here -->
+        </div>
+        <textarea id="answerInput" placeholder="Type your answer here..." rows="4"></textarea>
+        <button id="submitAnswer">Submit Answer</button>
+        <div id="result" class="result"></div>
+        <button id="nextQuestion" class="next-button">Next Question</button>
+    </div>
+
+    <script>
+        // Array of chemistry questions and answers
+const questions = [
+    { question: "What is the chemical formula for water?", answer: "H2O" },
+    { question: "What is the pH level of pure water?", answer: "7" },
+    { question: "What is the main gas in the Earth's atmosphere?", answer: "Nitrogen" },
+    { question: "What element does 'O' represent on the periodic table?", answer: "Oxygen" },
+    { question: "What is the chemical symbol for gold?", answer: "Au" },
+];
+
+let currentQuestionIndex = 0;
+
+// Function to display the current question
+function displayQuestion() {
+    const questionDisplay = document.getElementById("questionDisplay");
+    questionDisplay.textContent = questions[currentQuestionIndex].question;
+}
+
+// Function to check the answer
+function checkAnswer() {
+    const answerInput = document.getElementById("answerInput").value.trim();
+    const result = document.getElementById("result");
+    if (answerInput.toLowerCase() === questions[currentQuestionIndex].answer.toLowerCase()) {
+        result.textContent = "Correct! 🎉";
+    } else {
+        result.textContent = `Incorrect. The correct answer is: ${questions[currentQuestionIndex].answer}`;
+    }
+}
+
+// Function to move to the next question
+function nextQuestion() {
+    currentQuestionIndex++;
+    if (currentQuestionIndex < questions.length) {
+        document.getElementById("answerInput").value = ""; // Clear previous answer
+        document.getElementById("result").textContent = ""; // Clear result
+        displayQuestion();
+    } else {
+        document.getElementById("questionDisplay").textContent = "No more questions available.";
+        document.getElementById("answerInput").style.display = "none";
+        document.getElementById("submitAnswer").style.display = "none";
+        document.getElementById("nextQuestion").style.display = "none";
+    }
+}
+
+// Event listeners for buttons
+document.getElementById("submitAnswer").addEventListener("click", checkAnswer);
+document.getElementById("nextQuestion").addEventListener("click", nextQuestion);
+
+// Initial question display
+displayQuestion();
+
+    </script> <!-- Link to JS file -->
+</body>
+</html>

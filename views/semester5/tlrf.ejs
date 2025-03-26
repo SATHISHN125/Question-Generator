@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Unit Topics</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<style>
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f9f9f9;
+    margin: 20px;
+  }
+  
+  h1 {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .unit {
+    padding: 10px;
+    margin: 5px 0;
+    background-color: #007bff;
+    color: white;
+    cursor: pointer;
+    text-align: center;
+    border-radius: 5px;
+  }
+  
+  .unit:hover {
+    background-color: #0056b3;
+  }
+  
+  #subtopics-container {
+    margin-top: 20px;
+  }
+  
+  .subtopic {
+    margin: 10px 0;
+    padding: 10px;
+    background-color: #28a745;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .subtopic:hover {
+    background-color: #218838;
+  }
+  
+  #part-options {
+    margin-top: 10px;
+  }
+  
+  button {
+    padding: 10px;
+    margin: 5px;
+    background-color: #ffc107;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+  }
+  
+  button:hover {
+    background-color: #e0a800;
+  }
+</style>
+<body>
+  <h1>Unit Topics</h1>
+  <div id="units">
+    <div class="unit" onclick="loadSubtopics(1)">UNIT I - TRANSMISSION LINE THEORY</div>
+    <div class="unit" onclick="loadSubtopics(2)">UNIT II - HIGH FREQUENCY TRANSMISSION LINES</div>
+    <div class="unit" onclick="loadSubtopics(3)">UNIT III - IMPEDANCE MATCHING</div>
+    <div class="unit" onclick="loadSubtopics(4)">UNIT IV - WAVEGUIDES</div>
+    <div class="unit" onclick="loadSubtopics(5)">UNIT V - RF SYSTEM DESIGN</div>
+  </div>
+
+  <div id="subtopics-container"></div>
+
+  <script>
+  const unitsData = {
+    1: [
+      "General theory of Transmission lines",
+      "The transmission line — general solution",
+      "The infinite line",
+      "Wavelength, velocity of propagation",
+      "Waveform distortion",
+      "The distortion-less line",
+      "Loading and different methods of loading",
+      "Line not terminated in Z0",
+      "Reflection coefficient",
+      "Calculation of current, voltage, power delivered and efficiency of transmission",
+      "Input and transfer impedance",
+      "Open and short circuited lines",
+      "Reflection factor and reflection loss"
+    ],
+    2: [
+      "Transmission line equations at radio frequencies",
+      "Line of Zero dissipation",
+      "Voltage and current on the dissipation-less line",
+      "Standing Waves, Nodes, Standing Wave Ratio",
+      "Input impedance of the dissipation-less line",
+      "Open and short circuited lines",
+      "Power and impedance measurement on lines",
+      "Reflection losses",
+      "Measurement of VSWR and wavelength"
+    ],
+    3: [
+      "Impedance matching: Quarter wave transformer",
+      "Impedance matching by stubs",
+      "Single stub and double stub matching",
+      "Smith chart",
+      "Solutions of problems using Smith chart",
+      "Single and double stub matching using Smith chart"
+    ],
+    4: [
+      "General Wave behavior along uniform guiding structures",
+      "Transverse Electromagnetic Waves",
+      "Transverse Magnetic Waves",
+      "Transverse Electric Waves",
+      "TM and TE Waves between parallel plates",
+      "Field Equations in rectangular waveguides",
+      "TM and TE waves in rectangular waveguides",
+      "Bessel Functions",
+      "TM and TE waves in Circular waveguides"
+    ],
+    5: [
+      "Active RF components: Semiconductor basics in RF",
+      "Bipolar junction transistors",
+      "RF field effect transistors",
+      "High electron mobility transistors",
+      "Basic concepts of RF design",
+      "Mixers",
+      "Low noise amplifiers",
+      "Voltage control oscillators",
+      "Power amplifiers",
+      "Transducer power gain and stability considerations"
+    ]
+  };
+  
+  function loadSubtopics(unitId) {
+    const subtopics = unitsData[unitId];
+    const container = document.getElementById("subtopics-container");
+    container.innerHTML = "<h2>Subtopics</h2>";
+  
+    subtopics.forEach((subtopic, index) => {
+      const subtopicDiv = document.createElement("div");
+      subtopicDiv.className = "subtopic";
+      subtopicDiv.textContent = `${index + 1}. ${subtopic}`;
+      subtopicDiv.onclick = () => loadPartOptions(subtopic);
+      container.appendChild(subtopicDiv);
+    });
+  }
+  
+  function loadPartOptions(subtopic) {
+    const container = document.getElementById("subtopics-container");
+    container.innerHTML = `
+      <h2>${subtopic}</h2>
+      <div id="part-options">
+        <button onclick="loadPartA()">Part A</button>
+        <button onclick="loadPartB()">Part B</button>
+      </div>
+    `;
+  }
+  
+  function loadPartA() {
+    const container = document.getElementById("subtopics-container");
+    container.innerHTML = `
+      <div id="part-a">
+        <h3>Part A</h3>
+       <form action="/tll" method="post"> 
+    <label for="subtopic">Enter your questions</label>
+    <input type="text" id="subtopic" placeholder="Part A Question" name="subtopic" required><br>
+    
+    <label for="rank">Rank:</label>
+    <input type="number" id="rank" placeholder="Give the rank out of 10" name="rank" required><br>
+    
+    <!-- Submit button: Submits the form -->
+    <button type="submit">Submit</button>
+    
+    <!-- Add More Questions button: Adds another input field -->
+    <button type="button" onclick="addData()">Add More Questions</button>
+  </form>
+      </div>
+       <div id="questions-list"></div>
+    `;
+  }
+</script>
+</body>
+</html>

@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Transmission Line Theory Questions</title>
+  <style>
+    /* Basic Reset */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    /* Body */
+    body {
+      background-color: #f4f7f6;
+      color: #333;
+      line-height: 1.6;
+    }
+
+    /* Container */
+    .container {
+      width: 90%;
+      max-width: 800px;
+      margin: 50px auto;
+      padding: 20px;
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+      text-align: center;
+    }
+
+    /* Title */
+    h1 {
+      color: #2c3e50;
+      margin-bottom: 30px;
+      font-size: 2.5em;
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Button Container */
+    .button-container {
+      display: flex;
+      justify-content: space-around;
+      margin-bottom: 20px;
+    }
+
+    .button-container button {
+      padding: 15px 25px;
+      border: none;
+      border-radius: 25px;
+      background-color: #3498db;
+      color: #fff;
+      font-size: 1.1em;
+      cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    .button-container button:hover {
+      background-color: #2980b9;
+      transform: translateY(-2px);
+    }
+
+    /* Question Display */
+    .question-display {
+      background-color: #ecf0f1;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+      color: #34495e;
+      text-align: left;
+      overflow-y: auto;
+      max-height: 300px; /* Adds scroll if content is too long */
+    }
+
+    .question-display h2 {
+      margin-bottom: 15px;
+      color: #2c3e50;
+      font-size: 1.8em;
+    }
+
+    .question-display p {
+      margin-bottom: 10px;
+      padding: 10px;
+      border-left: 4px solid #3498db;
+      background-color: #fff;
+      border-radius: 5px;
+      transition: background-color 0.2s;
+    }
+
+    .question-display p:hover {
+      background-color: #d5e8f6; /* Lighten on hover */
+    }
+
+    /* Responsive Design */
+    @media (max-width: 600px) {
+      .button-container {
+        flex-direction: column;
+      }
+
+      .button-container button {
+        margin-bottom: 10px;
+        width: 100%; /* Full width on small screens */
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1>Transmission Line Theory Exam Questions</h1>
+    
+    <!-- Button Section -->
+    <div class="button-container">
+      <button onclick="showQuestions('IA1')">IA1</button>
+      <button onclick="showQuestions('IA2')">IA2</button>
+      <button onclick="showQuestions('IA3')">IA3</button>
+      <button onclick="showQuestions('Model')">Model Exam</button>
+    </div>
+    
+    <!-- Display Section -->
+    <div id="question-display" class="question-display">
+      <!-- Questions will be displayed here dynamically -->
+    </div>
+  </div>
+
+  <script>
+    // Question data for each unit and exam mode
+    const questions = {
+      IA1: [
+        "1. Explain the general solution of transmission line equation.",
+        "2. Derive the physical significance of the equation – infinite line.",
+        "3. Derive wavelength and velocity of propagation.",
+        "4. Explain line distortion and its types and derive an expression for distortionless line.",
+        "5. Explain the concept of reflection in transmission line and also derive reflection factor and loss.",
+        "6. Derive the expression for transmission line as cascaded T sections.",
+        "7. Explain insertion loss."
+      ],
+      IA2: [
+        "1. Derive the expression for input impedance of open and short-circuited lines.",
+        "2. Discuss the various parameters of open wire and coaxial lines at radio frequency.",
+        "3. Derive the voltages and currents on the dissipationless line.",
+        "4. Explain standing waves and derive standing wave ratio.",
+        "5. Derive the input impedance of open and short-circuited lines.",
+        "6. Derive power and impedance measurement on lines."
+      ],
+      IA3: [
+        "1. Obtain the expression for the field components of an electromagnetic wave propagating between a pair of perfectly conducting planes.",
+        "2. Derive the field equations for TE waves between parallel planes.",
+        "3. Derive the field equations for TM waves and TEM waves between parallel planes.",
+        "4. Obtain the expression for the field components of an electromagnetic wave propagating in a rectangular waveguide.",
+        "5. Explain in detail and derive the expression for rectangular and circular cavity resonators."
+      ],
+      Model: [
+        "1. Explain the general solution of transmission line equation.",
+        "2. Derive the physical significance of the equation – infinite line.",
+        "3. Determine SWR, load admittance, and impedance of the transmission line.",
+        "4. Obtain the expression for the field components of an electromagnetic wave propagating between parallel planes.",
+        "5. Derive the field equations for TE waves and TM waves.",
+        "6. Explain single stub matching and double stub matching."
+        // Include more questions from all units here
+      ]
+    };
+
+    // Function to display questions based on button click
+    function showQuestions(type) {
+      const display = document.getElementById("question-display");
+      display.innerHTML = ""; // Clear previous content
+      
+      const unitTitle = document.createElement("h2");
+      unitTitle.textContent = type === 'Model' ? 'Model Exam Questions' : `Questions - ${type}`;
+      display.appendChild(unitTitle);
+      
+      questions[type].forEach((question, index) => {
+        const questionElement = document.createElement("p");
+        questionElement.textContent = `${index + 1}. ${question}`;
+        display.appendChild(questionElement);
+      });
+    }
+  </script>
+</body>
+</html>

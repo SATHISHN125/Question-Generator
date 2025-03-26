@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exam Question Generator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .button {
+            background-color: #4CAF50; /* Green */
+            border: none;
+            color: white;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+            border-radius: 8px;
+            transition: background-color 0.3s;
+        }
+        .button:hover {
+            background-color: #45a049;
+        }
+        #questionArea {
+            margin-top: 20px;
+            background: #fff;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            display: none; /* Initially hidden */
+        }
+        .unit {
+            font-weight: bold;
+            margin-top: 20px;
+            color: #4CAF50;
+        }
+        .question {
+            margin-left: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Exam Question Generator</h1>
+    <button class="button" onclick="generateQuestions('IA1')">IA1</button>
+    <button class="button" onclick="generateQuestions('IA2')">IA2</button>
+    <button class="button" onclick="generateQuestions('IA3')">IA3</button>
+    <button class="button" onclick="generateQuestions('Model')">Model Exam</button>
+
+    <div id="questionArea"></div>
+
+    <script>
+        const questions = {
+            IA1: [
+                {
+                    unit: "Unit 1: Transmission Line Theory",
+                    questions: [
+                        "1. Define transmission line.",
+                        "2. State the various types of transmission lines.",
+                        "3. State the properties of infinite line.",
+                        "4. Define characteristic impedance of a line.",
+                        "5. Define propagation constant of a transmission line.",
+                        "6. Define wavelength of a line, phase and group velocity.",
+                        "7. What is the relationship between characteristic impedance and propagation constant?",
+                        "8. What is reflection on line?",
+                        "9. Define reflection factor and reflection coefficient.",
+                        "10. Define insertion loss and reflection loss."
+                    ]
+                },
+                {
+                    unit: "Unit 2: High Frequency Transmission Lines",
+                    questions: [
+                        "1. Define skin effect.",
+                        "2. If the reflection coefficient of a line is 0.3<-66°, calculate the standing wave ratio.",
+                        "3. What are standing waves?",
+                        "4. What is standing wave ratio or SWR?",
+                        "5. Express SWR in terms of reflection coefficient.",
+                        "6. What are the primary and secondary constants of a transmission line?",
+                        "7. What is called an infinite line?",
+                        "8. Draw the equivalent circuit of a transmission line.",
+                        "9. When does reflection take place on a transmission line?",
+                        "10. Give the general equation for the input impedance of a dissipative line."
+                    ]
+                }
+            ],
+            IA2: [
+                {
+                    unit: "Unit 3: Impedance Matching in High Frequency",
+                    questions: [
+                        "1. Give the application of one eighth wave line.",
+                        "2. What is the application of quarter wave line?",
+                        "3. Why is a quarter wave line called an impedance inverter?",
+                        "4. Bring out the significance of half wavelength line.",
+                        "5. Explain impedance matching using a stub.",
+                        "6. List the applications of the Smith chart.",
+                        "7. What are the difficulties in single stub matching?",
+                        "8. What is double stub matching?",
+                        "9. Give reason for an open line not frequently employed for impedance matching.",
+                        "10. Why double stub matching is preferred over single stub matching?"
+                    ]
+                },
+                {
+                    unit: "Unit 4: Wave Guides",
+                    questions: [
+                        "1. What is meant by guided waves and unguided waves?",
+                        "2. Define TE, TM, and TEM wave?",
+                        "3. Define the cutoff frequency of a guide.",
+                        "4. Define guide wavelength.",
+                        "5. What are the characteristics of TEM or principal wave?",
+                        "6. Define i) Free Space Velocity ii) Phase Velocity iii) Group Velocity.",
+                        "7. Compare TE and TM mode.",
+                        "8. What is meant by dominant mode? What is the dominant mode for parallel plate waveguides, rectangular waveguides, and circular waveguides?"
+                    ]
+                }
+            ],
+            IA3: [
+                {
+                    unit: "Unit 4: Wave Guides",
+                    questions: [
+                        "1. What is meant by guided waves and unguided waves?",
+                        "2. Define TE, TM, and TEM wave?",
+                        "3. Define the cutoff frequency of a guide.",
+                        "4. Define guide wavelength.",
+                        "5. What are the characteristics of TEM or principal wave?",
+                        "6. Define i) Free Space Velocity ii) Phase Velocity iii) Group Velocity.",
+                        "7. Compare TE and TM mode.",
+                        "8. What is meant by dominant mode? What is the dominant mode for parallel plate waveguides, rectangular waveguides, and circular waveguides?"
+                    ]
+                }
+            ],
+            Model: [
+                {
+                    unit: "Unit 1: Transmission Line Theory",
+                    questions: [
+                        "1. Define transmission line.",
+                        "2. State the various types of transmission lines.",
+                        "3. State the properties of infinite line.",
+                        "4. Define characteristic impedance of a line.",
+                        "5. Define propagation constant of a transmission line.",
+                        "6. Define wavelength of a line, phase and group velocity.",
+                        "7. What is the relationship between characteristic impedance and propagation constant?",
+                        "8. What is reflection on line?",
+                        "9. Define reflection factor and reflection coefficient.",
+                        "10. Define insertion loss and reflection loss."
+                    ]
+                },
+                {
+                    unit: "Unit 2: High Frequency Transmission Lines",
+                    questions: [
+                        "1. Define skin effect.",
+                        "2. If the reflection coefficient of a line is 0.3<-66°, calculate the standing wave ratio.",
+                        "3. What are standing waves?",
+                        "4. What is standing wave ratio or SWR?",
+                        "5. Express SWR in terms of reflection coefficient.",
+                        "6. What are the primary and secondary constants of a transmission line?",
+                        "7. What is called an infinite line?",
+                        "8. Draw the equivalent circuit of a transmission line.",
+                        "9. When does reflection take place on a transmission line?",
+                        "10. Give the general equation for the input impedance of a dissipative line."
+                    ]
+                },
+                {
+                    unit: "Unit 3: Impedance Matching in High Frequency",
+                    questions: [
+                        "1. Give the application of one eighth wave line.",
+                        "2. What is the application of quarter wave line?",
+                        "3. Why is a quarter wave line called an impedance inverter?",
+                        "4. Bring out the significance of half wavelength line.",
+                        "5. Explain impedance matching using a stub.",
+                        "6. List the applications of the Smith chart.",
+                        "7. What are the difficulties in single stub matching?",
+                        "8. What is double stub matching?",
+                        "9. Give reason for an open line not frequently employed for impedance matching.",
+                        "10. Why double stub matching is preferred over single stub matching?"
+                    ]
+                },
+                 {
+                    unit: "Unit 4: Wave Guides",
+                    questions: [
+                        "1. What is meant by guided waves and unguided waves?",
+                        "2. Define TE, TM, and TEM wave?",
+                        "3. Define the cutoff frequency of a guide.",
+                        "4. Define guide wavelength.",
+                        "5. What are the characteristics of TEM or principal wave?",
+                        "6. Define i) Free Space Velocity ii) Phase Velocity iii) Group Velocity.",
+                        "7. Compare TE and TM mode.",
+                        "8. What is meant by dominant mode? What is the dominant mode for parallel plate waveguides, rectangular waveguides, and circular waveguides?"
+                    ]
+                }
+            ]
+        };
+
+        function generateQuestions(IA) {
+            const questionArea = document.getElementById('questionArea');
+            questionArea.innerHTML = ''; // Clear previous questions
+            const selectedQuestions = questions[IA];
+
+            if (selectedQuestions) {
+                questionArea.style.display = 'block'; // Show the question area
+                selectedQuestions.forEach(unit => {
+                    const unitDiv = document.createElement('div');
+                    unitDiv.className = 'unit';
+                    unitDiv.innerText = unit.unit; // Unit title
+                    questionArea.appendChild(unitDiv);
+
+                    unit.questions.forEach(q => {
+                        const questionDiv = document.createElement('div');
+                        questionDiv.className = 'question';
+                        questionDiv.innerText = q; // Question
+                        questionArea.appendChild(questionDiv);
+                    });
+                });
+            }
+        }
+    </script>
+</body>
+</html>

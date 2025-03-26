@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <title>Velammal Institute of Technology</title>
+</head>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+    border: none;
+    outline: none;
+    font-family: 'Poppins', sans-serif;
+}
+html {
+    font-size: 62.5%;
+}
+body {
+    width: 100%;
+    min-height: 100vh;
+    overflow-x: hidden;
+    background-color: rgb(0, 0, 0);
+    color: rgb(255, 253, 253);
+    position: relative;
+}
+
+header {
+    margin-top: 20px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 1rem 9%;
+    background-color: rgb(41, 40, 40);
+    filter: drop-shadow(10px);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 100;
+}
+
+nav a {
+    font-size: 1.8rem;
+    color: white;
+    margin-left: 4rem;
+    font-weight: 500;
+    text-align: right;
+    transition: 0.3s ease;
+}
+nav a:hover,
+nav a.active {
+    color: #b74b4b;
+}
+
+@media(max-width: 768px) {
+    nav a {
+        font-size: 1.4rem;
+        margin: 2rem;
+        padding-right: 50px;
+    }
+}
+
+.container {
+   margin: 0 auto;
+   width: 100%;
+   max-width: 700px;
+   position: relative;
+   padding-top: 100px;
+   display: flex;
+   flex-wrap: wrap;
+   overflow-x: hidden;
+   z-index: 10; /* Place above canvas */
+}
+
+.slides {
+    display: flex;
+    height: auto;
+    width: 100%;
+}
+
+.slide {
+    min-width: 100%;
+}
+
+.slide img {
+    width: 100%;
+    height: auto;
+    border-radius: 15px;
+}
+
+.slide-controls {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#prev, #next {
+    cursor: pointer;
+    background: transparent;
+    font-size: 4.5rem;
+    padding: 20px;
+    color: white;
+}
+
+@media (max-width: 600px) {
+    html {
+        font-size: 50%;
+    }
+    header {
+        padding: 2rem 5%;
+        border-radius: 15px;
+    }
+    nav a {
+        font-size: 1.4rem;
+        margin: 1rem;
+    }
+    .container {
+        padding-top: 80px;
+    }
+    .slide img {
+        border-radius: 10px;
+    }
+    #prev, #next {
+        font-size: 5rem;
+    }
+}
+
+/* Canvas styling for animated background */
+#backgroundCanvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1; /* Behind all content */
+}
+</style>
+<body>
+    <!-- Canvas for animated background -->
+    <canvas id="backgroundCanvas"></canvas>
+
+    <header>
+        <nav>
+            <a href="/main">Home</a>
+            <a href="/login">Login</a>
+            <a href="/signup">Sign up</a>
+            <a href="/">Information</a>
+        </nav>
+    </header>
+
+    <div class="container">
+        <div class="slides">
+            <div class="slide">
+                <img src="https://cdn.pixabay.com/photo/2015/07/19/10/00/school-work-851328_640.jpg" alt="" >
+            </div>
+            <div class="slide">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTqsUSNEFXN0s2Shn8CHZWsNbzqS5-ljKf1AA&s" alt="">
+            </div>
+            <div class="slide">
+                <img src="https://images.unsplash.com/photo-1501504905252-473c47e087f8?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8Y291cnNlfGVufDB8fDB8fHww" alt="">
+            </div>
+            <div class="slide">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR7UHqwdvhLhuneLowrcIOMsv8x1UiijDRTOA&s" alt="">
+            </div>
+        </div>
+        <div class="slide-controls">
+            <button id="prev">
+                <i class="fa fa-chevron-circle-left"></i>
+            </button>
+            <button id="next">
+                <i class="fa fa-chevron-circle-right"></i>
+            </button>
+        </div>
+    </div>
+
+    <script> 
+// JavaScript for carousel
+const slideContainer = document.querySelector('.container');
+const slide = document.querySelector('.slides');
+const nextbtn = document.getElementById('next');
+const prevbtn = document.getElementById('prev');
+const interval = 2000;
+let slideId;
+
+let slides = document.querySelectorAll('.slide');
+let index = 1;
+
+const firstClone = slides[0].cloneNode(true);
+const lastClone = slides[slides.length - 1].cloneNode(true);
+
+firstClone.id = 'first-clone';
+lastClone.id = 'last-clone';
+
+slide.append(firstClone);
+slide.prepend(lastClone);
+
+const slideWidth = slides[index].clientWidth;
+
+slide.style.transform = `translateX(${-slideWidth * index}px)`;
+
+const startSlide = () => {
+    slideId = setInterval(() => {
+        moveToNextSlide();
+    }, interval);
+};
+
+const getSlides = () => document.querySelectorAll('.slide');
+
+slide.addEventListener('transitionend', () => {
+    slides = getSlides();
+    if (slides[index].id === firstClone.id) {
+        slide.style.transition = 'none';
+        index = 1;
+        slide.style.transform = `translateX(${-slideWidth * index}px)`;
+    }
+    if (slides[index].id === lastClone.id) {
+        slide.style.transition = 'none';
+        index = slides.length - 2;
+        slide.style.transform = `translateX(${-slideWidth * index}px)`;
+    }
+});
+
+const moveToNextSlide = () => {
+    slides = getSlides();
+    if (index >= slides.length - 1) return;
+    index++;
+    slide.style.transform = `translateX(${-slideWidth * index}px)`;
+    slide.style.transition = '.7s';
+};
+
+const moveToPrevious = () => {
+    if (index <= 0) return;
+    index--;
+    slide.style.transform = `translateX(${-slideWidth * index}px)`;
+    slide.style.transition = '.7s';
+};
+
+slideContainer.addEventListener('mouseenter', () => {
+    clearInterval(slideId);
+});
+
+slideContainer.addEventListener('mouseleave', startSlide);
+
+nextbtn.addEventListener('click', moveToNextSlide);
+prevbtn.addEventListener('click', moveToPrevious);
+
+startSlide();
+
+// JavaScript for animated background
+const canvas = document.getElementById("backgroundCanvas");
+const ctx = canvas.getContext("2d");
+
+// Resize canvas
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+// Particle array to store particles
+const particlesArray = [];
+const numberOfParticles = 100;
+
+class Particle {
+    constructor() {
+        this.x = Math.random() * canvas.width;
+        this.y = Math.random() * canvas.height;
+        this.size = Math.random() * 3 + 1;
+        this.speedX = Math.random() * 1 - 0.5;
+        this.speedY = Math.random() * 1 - 0.5;
+    }
+
+    update() {
+        this.x += this.speedX;
+        this.y += this.speedY;
+        if (this.x > canvas.width) this.x = 0;
+        if (this.x < 0) this.x = canvas.width;
+        if (this.y > canvas.height) this.y = 0;
+        if (this.y < 0) this.y = canvas.height;
+    }
+
+    draw() {
+        ctx.fillStyle = 'rgba(255, 255, 255, 0.5)';
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.closePath();
+        ctx.fill();
+    }
+}
+
+// Create particles
+function init() {
+    for (let i = 0; i < numberOfParticles; i++) {
+        particlesArray.push(new Particle());
+    }
+}
+
+// Animate particles
+function animate() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    particlesArray.forEach(particle => {
+        particle.update();
+        particle.draw();
+    });
+    requestAnimationFrame(animate);
+}
+
+init();
+animate();
+
+window.addEventListener('resize', function() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    init(); // Reinitialize particles on resize
+});
+</script>
+</body>
+</html>
